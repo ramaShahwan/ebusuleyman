@@ -66,8 +66,14 @@
 
                         <td>{{ $item->product_title }}</td>
                         <td>{{ $item->category_id }}</td>
-                        <td>{{ $item->tag->tag_title ?? 'No Tag' }}</td>
-
+                        {{-- <td>{{ $item->tag->tag_title ?? 'No Tag' }}</td> --}}
+                        <td>
+                            @if($item->tags && $item->tags->isNotEmpty())
+                                {{ implode(', ', $item->tags->pluck('tag_title')->toArray()) }}
+                            @else
+                                No Tag
+                            @endif
+                        </td>
                         <td>{{ $item->product_desc }}</td>
                         <td>{{ $item->product_price }}</td>
 

@@ -79,13 +79,30 @@
                                 </div>
 
                                 <div class="col-md-6 mt-3">
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label>Tag</label>
                                         <select name="tag_id" class="form-control select2">
                                             @foreach ($tag as $item)
                                                 <option value="{{ $item->id }}"
                                                     {{ $data->tag_id == $item->id ? 'selected' : '' }}>
                                                     {{ $item->tag_title }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('tag_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div> --}}
+
+                                <div class="col-md-6 mt-3">
+                                    <div class="form-group">
+                                        <label>Tag</label>
+                                        <select name="tag_id[]" class="form-control select2" multiple>
+                                            @foreach ($tags as $tag)
+                                                <option value="{{ $tag->id }}"
+                                                    {{ in_array($tag->id, $data->tags->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                                    {{ $tag->tag_title }}
                                                 </option>
                                             @endforeach
                                         </select>

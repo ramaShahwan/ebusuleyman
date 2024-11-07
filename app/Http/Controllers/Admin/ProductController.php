@@ -46,106 +46,103 @@ class ProductController extends Controller
 
 
     public function ProductStore(Request $request)
-    {
+{
+    $request->validate([
+        'product_title' => 'required|string',
+        'category_id' => 'required|string',
+        'product_desc' => 'required|string',
+        'product_price' => 'required|string',
+        'product_image' => 'required|image|mimes:jpeg,png,jpg',
+        'product_image_seo' => 'required|string',
+        'tag_id' => 'required|array', 
+    ]);
 
-        $request->validate([
-            'product_title' => 'required|string',
-            'category_id' => 'required|string',
-            'product_desc' => 'required|string',
-            'product_price' => 'required|string',
-            'product_image' => 'required|image|mimes:jpeg,png,jpg',
-            'product_image_seo' => 'required|string',
-
-        ]);
-
-
-        if ($request->hasFile('product_image')) {
-            $manager = new ImageManager(new Driver());
-
-
-            $name_gen = hexdec(uniqid()) . '.' . $request->file('product_image')->getClientOriginalExtension();
-
-            $img = $manager->read($request->file('product_image'));
-
-            // $img = $img->resize(1920, 1281);
-
-            $img->save(base_path('public/uploads/product/' . $name_gen));
-
-            $save_url = 'uploads/product/' . $name_gen;
-        }
-
-        Product::create([
-            'product_title' => $request->product_title,
-            'category_id' => $request->category_id,
-            'tag_id' => $request->tag_id,
-            'product_desc' => $request->product_desc,
-            'product_price' => $request->product_price,
-            'product_image' => $save_url ?? null,
-            'product_image_seo' => $request->product_image_seo,
-            'product_status' => $request->product_status,
-            'user_id' => Auth::id(),
-        ]);
-
-        $notification = [
-            'message' => 'Product Created Successfully.',
-            'alert-type' => 'success'
-        ];
-
-        return redirect()->route('admin_product_view')->with($notification);
+    if ($request->hasFile('product_image')) {
+        $manager = new ImageManager(new Driver());
+        $name_gen = hexdec(uniqid()) . '.' . $request->file('product_image')->getClientOriginalExtension();
+        $img = $manager->read($request->file('product_image'));
+        $img->save(base_path('public/uploads/product/' . $name_gen));
+        $save_url = 'uploads/product/' . $name_gen;
     }
 
+    
+    $tags = implode(',', $request->tag_id);
 
-    public function ProductUpdate(Request $request)
-    {
-        $request->validate([
-            'product_title' => 'required|string',
-            'category_id' => 'required|string',
-            'product_desc' => 'nullable|string',
-            'product_price' => 'nullable|string',
-            'product_image' => 'nullable|image|mimes:jpeg,png,jpg',
-            'product_image_seo' => 'nullable|string',
-        ]);
+    Product::create([
+        'product_title' => $request->product_title,
+        'category_id' => $request->category_id,
+        'tag_id' => $tags, 
+        'product_desc' => $request->product_desc,
+        'product_price' => $request->product_price,
+        'product_image' => $save_url ?? null,
+        'product_image_seo' => $request->product_image_seo,
+        'product_status' => $request->product_status,
+        'user_id' => Auth::id(),
+    ]);
 
-        $product = Product::findOrFail($request->id);
+    $notification = [
+        'message' => 'Product Created Successfully.',
+        'alert-type' => 'success'
+    ];
 
-        if ($request->hasFile('product_image')) {
-            // Delete old image
-            if ($product->product_image && file_exists(public_path($product->product_image))) {
-                unlink(public_path($product->product_image));
-            }
+    return redirect()->route('admin_product_view')->with($notification);
+}
 
-            $manager = new ImageManager(new Driver());
-            $name_gen = hexdec(uniqid()) . '.' . $request->file('product_image')->getClientOriginalExtension();
-            $img = $manager->read($request->file('product_image'));
 
-            // Uncomment if resizing is required
-            // $img = $img->resize(1920, 1281);
+public function ProductUpdate(Request $request)
+{
+    $request->validate([
+        'product_title' => 'required|string',
+        'category_id' => 'required|string',
+        'product_desc' => 'nullable|string',
+        'product_price' => 'nullable|string',
+        'product_image' => 'nullable|image|mimes:jpeg,png,jpg',
+        'product_image_seo' => 'nullable|string',
+        'tag_id' => 'required|array', 
+    ]);
 
-            $img->save(public_path('uploads/product/' . $name_gen));
-            $save_url = 'uploads/product/' . $name_gen;
-        } else {
-            $save_url = $product->product_image; // Keep the existing image if no new one is uploaded
+    $product = Product::findOrFail($request->id);
+
+    if ($request->hasFile('product_image')) {
+        // Delete old image
+        if ($product->product_image && file_exists(public_path($product->product_image))) {
+            unlink(public_path($product->product_image));
         }
 
-        $product->update([
-            'product_title' => $request->product_title,
-            'category_id' => $request->category_id,
-            'tag_id' => $request->tag_id,
-            'product_desc' => $request->product_desc,
-            'product_price' => $request->product_price,
-            'product_image' => $save_url,
-            'product_image_seo' => $request->product_image_seo,
-            'product_status' => $request->product_status,
-            'user_id' => Auth::id(),
-        ]);
+        $manager = new ImageManager(new Driver());
+        $name_gen = hexdec(uniqid()) . '.' . $request->file('product_image')->getClientOriginalExtension();
+        $img = $manager->read($request->file('product_image'));
 
-        $notification = [
-            'message' => 'Product Updated Successfully.',
-            'alert-type' => 'warning'
-        ];
+        // Uncomment if resizing is required
+        // $img = $img->resize(1920, 1281);
 
-        return redirect()->route('admin_product_view')->with($notification);
+        $img->save(public_path('uploads/product/' . $name_gen));
+        $save_url = 'uploads/product/' . $name_gen;
+    } else {
+        $save_url = $product->product_image; // Keep the existing image if no new one is uploaded
     }
+
+    $tags = implode(',', $request->tag_id);
+
+    $product->update([
+        'product_title' => $request->product_title,
+        'category_id' => $request->category_id,
+        'tag_id' => $tags, 
+        'product_desc' => $request->product_desc,
+        'product_price' => $request->product_price,
+        'product_image' => $save_url,
+        'product_image_seo' => $request->product_image_seo,
+        'product_status' => $request->product_status,
+        'user_id' => Auth::id(),
+    ]);
+
+    $notification = [
+        'message' => 'Product Updated Successfully.',
+        'alert-type' => 'warning'
+    ];
+
+    return redirect()->route('admin_product_view')->with($notification);
+}
 
 
 

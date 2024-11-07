@@ -100,7 +100,7 @@
                                 </div>
 
 
-                                <div class="col-md-6 mt-3">
+                                {{-- <div class="col-md-6 mt-3">
                                     <div class="form-group">
                                         <label>Tag</label>
                                         <select name="tag_id" class="form-control select2">
@@ -120,6 +120,25 @@
                                     </div>
                                     <!-- /.form-group -->
 
+                                    <!-- /.form-group -->
+                                </div> --}}
+
+                                <div class="col-md-6 mt-3">
+                                    <div class="form-group">
+                                      <label>Tag</label>
+                                      <div class="select2-purple">
+                                        <select class="select2" multiple="multiple" data-placeholder="Select a State" 
+                                         name="tag_id[]" data-dropdown-css-class="select2-purple" style="width: 100%;">
+                                         @foreach ($category as $item)
+                                         <option value="{{ $item->id }}">{{ $item->category_title }}
+                                         </option>
+                                     @endforeach
+                                        </select>
+                                        @error('tag_id')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                      </div>
+                                    </div>
                                     <!-- /.form-group -->
                                 </div>
 
