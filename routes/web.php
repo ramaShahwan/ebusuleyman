@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomePageController::class, 'index'])->name('home_page');
 
-
+Route::controller(HomePageController::class)->group(function () {
+    Route::get('/category/all', 'index')->name('get_category');
+    Route::get('/search', 'search')->name('search');
+    Route::get('/product/{id}', 'get_product_for_category')->name('get_product_for_category');
+});
 
 
 Route::get('/dashboard', function () {
@@ -118,6 +122,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/admin/setting/update', 'update')->name('admin_setting_update');
     });
 
+
+
+
+    //// HomePageController Route List
 
 });
 

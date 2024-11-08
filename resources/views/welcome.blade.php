@@ -31,6 +31,112 @@
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/main.css') }}">
     <!-- responsive -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
+   
+    <style>
+<style>
+.pagination-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination-wrap .pagination {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.pagination-wrap .pagination .page-item {
+    display: inline-block;
+}
+
+.pagination-wrap .pagination .page-link {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-wrap .pagination .page-item.active .page-link {
+    background-color: #ff6600; 
+    color: #fff;
+    border-color: #ff6600;
+}
+
+.pagination-wrap .pagination .page-link:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.pagination-wrap .pagination .page-item.disabled .page-link {
+    color: #999;
+    cursor: not-allowed;
+    border-color: #ddd;
+}
+
+.product-lists .col-lg-4,
+.product-lists .col-md-6 {
+    display: flex;
+}
+
+.single-product-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.product-image img {
+    width: 100%;
+    height: 200px; 
+    object-fit: cover; 
+    border-radius: 5px;
+}
+
+
+.single-product-item h3 {
+    font-size: 1.25em;
+    font-weight: bold;
+    margin-top: 10px;
+    min-height: 50px;
+}
+
+.single-product-item span {
+    flex-grow: 1;
+    min-height: 40px; 
+}
+
+.product-price {
+    font-size: 1.5em;
+    color: #333;
+    margin-top: 10px;
+}
+
+.cart-btn {
+    margin-top: auto;
+    padding: 10px;
+    font-size: 0.9em;
+    background-color: #ff6600;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.cart-btn:hover {
+    background-color: #e65c00;
+}
+</style>
+
+        </style>
 
 </head>
 
@@ -96,12 +202,15 @@
                                 </li>
                                 <li>
                                     <div class="header-icons">
-                                        <a class="shopping-cart" href="{{ asset('cart.html') }}"><i
-                                                class="fas fa-shopping-cart"></i></a>
-                                        <a class="mobile-hide search-bar-icon" href="#"><i
-                                                class="fas fa-search"></i></a>
+                                        <form action="{{ route('search') }}" method="GET" class="search-form">
+                                            <input type="text" name="search" placeholder="ابحث عن المنتج أو التاغ" value="{{ request('search') }}">
+                                            <button type="submit"><i class="fas fa-search"></i></button>
+                                        </form>
+                                        <a class="shopping-cart" href="{{ asset('cart.html') }}"><i class="fas fa-shopping-cart"></i></a>
                                     </div>
                                 </li>
+                                
+                                
                             </ul>
                         </nav>
                         <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
@@ -207,91 +316,46 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-filters">
-                        <ul>
-                            <li class="active" data-filter="*">All</li>
-                            <li data-filter=".strawberry">Strawberry</li>
-                            <li data-filter=".berry">Berry</li>
-                            <li data-filter=".lemon">Lemon</li>
+                        <ul id="filter-list">
+                            <li class="active" data-url="{{ url('/category/all') }}">All</li>
+                            @foreach ($categories as $category)
+                            <li data-url="{{ url('/product', $category->id) }}">{{ $category->category_title }}</li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
             </div>
+            
+      
 
             <div class="row product-lists">
-                <div class="col-lg-4 col-md-6 text-center strawberry">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <a href="single-product.html"><img
-                                    src="{{ asset('frontend/assets/img/products/product-img-1.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <h3>Strawberry</h3>
-                        <p class="product-price"><span>Per Kg</span> 85$ </p>
-                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center berry">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <a href="single-product.html"><img
-                                    src="{{ asset('frontend/assets/img/products/product-img-2.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <h3>Berry</h3>
-                        <p class="product-price"><span>Per Kg</span> 70$ </p>
-                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center lemon">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <a href="single-product.html"><img
-                                    src="{{ asset('frontend/assets/img/products/product-img-3.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <h3>Lemon</h3>
-                        <p class="product-price"><span>Per Kg</span> 35$ </p>
-                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                    </div>
-                </div>
+                @foreach ($products as $product)
                 <div class="col-lg-4 col-md-6 text-center">
-                    <div class="single-product-item">
+                    <div class="single-product-item d-flex flex-column">
                         <div class="product-image">
                             <a href="single-product.html"><img
-                                    src="{{ asset('frontend/assets/img/products/product-img-4.jpg') }}"
-                                    alt=""></a>
+                                class="card-img-top rounded-0 w-100" 
+                                src="{{ asset($product->product_image) }}"
+                                alt="product_image"></a>
                         </div>
-                        <h3>Avocado</h3>
-                        <p class="product-price"><span>Per Kg</span> 50$ </p>
+                        <h3>{{$product->product_title }}</h3>
+                        <span>{{$product->product_desc }}</span>
+                        <span> 
+                            @if($product->tags && $product->tags->isNotEmpty())
+                                {{ implode(', ', $product->tags->pluck('tag_title')->toArray()) }}
+                            @else
+                                No Tag
+                            @endif
+                        </span>
+                        <p class="product-price"><span>Per Kg</span>{{$product->product_price }}$</p>
                         <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <a href="single-product.html"><img
-                                    src="{{ asset('frontend/assets/img/products/product-img-5.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <h3>Green Apple</h3>
-                        <p class="product-price"><span>Per Kg</span> 45$ </p>
-                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center strawberry">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                            <a href="single-product.html"><img
-                                    src="{{ asset('frontend/assets/img/products/product-img-6.jpg') }}"
-                                    alt=""></a>
-                        </div>
-                        <h3>Strawberry</h3>
-                        <p class="product-price"><span>Per Kg</span> 80$ </p>
-                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                    </div>
-                </div>
+                @endforeach
             </div>
-
+            
+            
+{{--          
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="pagination-wrap">
@@ -304,7 +368,18 @@
                         </ul>
                     </div>
                 </div>
+            </div> --}}
+
+
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="pagination-wrap">
+                        {{ $products->links('pagination.custom-pagination') }}
+                    </div>
+                </div>
             </div>
+            
+            
         </div>
     </div>
     <!-- end product section -->
@@ -640,6 +715,22 @@
     <!-- main js -->
     <script src="{{ asset('frontend/assets/js/main.js') }}"></script>
 
+
+    <script>
+    
+        function handleFilterClick(url) {
+            console.log("Navigating to:", url);
+            window.location.href = url;
+        }
+    
+        const filterItems = document.querySelectorAll('#filter-list li');
+        filterItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const url = this.getAttribute('data-url');
+                handleFilterClick(url);
+            });
+        });
+    </script>
 
 </body>
 
