@@ -22,6 +22,9 @@ Route::controller(HomePageController::class)->group(function () {
 });
 
 
+
+
+
 Route::get('/dashboard', function () {
     return view('admin.index');
 })->middleware(['auth', 'verified'])->name('dashboard');

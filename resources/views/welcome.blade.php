@@ -32,8 +32,8 @@
     <!-- responsive -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/responsive.css') }}">
    
-    <style>
 <style>
+
 .pagination-wrap {
     display: flex;
     justify-content: center;
@@ -136,7 +136,6 @@
 }
 </style>
 
-        </style>
 
 </head>
 
@@ -200,7 +199,7 @@
                                         <li><a href="{{ asset('cart.html') }}">Cart</a></li>
                                     </ul>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <div class="header-icons">
                                         <form action="{{ route('search') }}" method="GET" class="search-form">
                                             <input type="text" name="search" placeholder="ابحث عن المنتج أو التاغ" value="{{ request('search') }}">
@@ -208,10 +207,22 @@
                                         </form>
                                         <a class="shopping-cart" href="{{ asset('cart.html') }}"><i class="fas fa-shopping-cart"></i></a>
                                     </div>
+                                </li> --}}
+
+ 
+                                <li>
+                                    <div class="header-icons">
+                                        <a class="shopping-cart" href="{{ asset('cart.html') }}"><i class="fas fa-shopping-cart"></i></a>
+                                        <a class="mobile-hide search-bar-icon"  onclick="toggleSearchForm(event);">
+                                            <i class="fas fa-search"></i>
+                                        </a>
+                                        <form id="searchForm" action="{{ route('search') }}" method="GET" style="display: none;">
+                                            <input type="text" name="search" placeholder="Keywords" required>
+                                            <button type="submit"><i class="fas fa-search"></i> Search</button>
+                                        </form>
+                                    </div>
                                 </li>
-                                
-                                
-                            </ul>
+                 
                         </nav>
                         <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
                         <div class="mobile-menu"></div>
@@ -312,64 +323,38 @@
     <!-- product section -->
     <div class="product-section mt-150 mb-150">
         <div class="container">
-
+    
             <div class="row">
                 <div class="col-md-12">
                     <div class="product-filters">
-                        <ul id="filter-list">
-                            <li class="active" data-url="{{ url('/category/all') }}">All</li>
-                            @foreach ($categories as $category)
-                            <li data-url="{{ url('/product', $category->id) }}">{{ $category->category_title }}</li>
+                        <ul>
+                            <li class="active" data-filter="*">All</li>
+                            @foreach ($categories as $item)
+                                <li data-filter=".{{ $item->id }}">{{ $item->category_title }}</li>
                             @endforeach
                         </ul>
                     </div>
                 </div>
             </div>
-            
-      
-
+    
             <div class="row product-lists">
+                @if($products->count())
                 @foreach ($products as $product)
-                <div class="col-lg-4 col-md-6 text-center">
-                    <div class="single-product-item d-flex flex-column">
-                        <div class="product-image">
-                            <a href="single-product.html"><img
-                                class="card-img-top rounded-0 w-100" 
-                                src="{{ asset($product->product_image) }}"
-                                alt="product_image"></a>
+                    <div class="col-lg-4 col-md-6 text-center {{ strtolower($product->category_id) }}">
+                        <div class="single-product-item">
+                            <div class="product-image"> <a href="single-product.html"><img
+                                        src="{{ asset($product->product_image) }}" alt=""></a> </div>
+                            <h3>{{ $product->product_title }}</h3>
+                            <p class="product-price"><span>Per Kg</span> {{ $product->product_price }}$ </p> <a
+                                href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                         </div>
-                        <h3>{{$product->product_title }}</h3>
-                        <span>{{$product->product_desc }}</span>
-                        <span> 
-                            @if($product->tags && $product->tags->isNotEmpty())
-                                {{ implode(', ', $product->tags->pluck('tag_title')->toArray()) }}
-                            @else
-                                No Tag
-                            @endif
-                        </span>
-                        <p class="product-price"><span>Per Kg</span>{{$product->product_price }}$</p>
-                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                     </div>
-                </div>
                 @endforeach
+                      @else
+                      <p>No results found.</p>
+                      @endif
             </div>
-            
-            
-{{--          
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="pagination-wrap">
-                        <ul>
-                            <li><a href="#">Prev</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a class="active" href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">Next</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div> --}}
-
+     
 
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -378,8 +363,6 @@
                     </div>
                 </div>
             </div>
-            
-            
         </div>
     </div>
     <!-- end product section -->
@@ -730,7 +713,10 @@
                 handleFilterClick(url);
             });
         });
+
     </script>
+
+
 
 </body>
 

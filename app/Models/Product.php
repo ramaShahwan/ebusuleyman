@@ -29,6 +29,7 @@ public function tags()
     return $this->hasMany(Tag::class, 'id', 'tag_id');  
 }
 
+
 public function getTagsAttribute()
 {
     $tagIds = explode(',', $this->tag_id); 
@@ -38,6 +39,6 @@ public function getTagsAttribute()
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'catgory_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }
