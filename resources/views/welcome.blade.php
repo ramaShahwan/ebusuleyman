@@ -199,7 +199,7 @@
                                         <li><a href="{{ asset('cart.html') }}">Cart</a></li>
                                     </ul>
                                 </li>
-                                {{-- <li>
+                                <li>
                                     <div class="header-icons">
                                         <form action="{{ route('search') }}" method="GET" class="search-form">
                                             <input type="text" name="search" placeholder="ابحث عن المنتج أو التاغ" value="{{ request('search') }}">
@@ -207,10 +207,10 @@
                                         </form>
                                         <a class="shopping-cart" href="{{ asset('cart.html') }}"><i class="fas fa-shopping-cart"></i></a>
                                     </div>
-                                </li> --}}
+                                </li>
 
  
-                                <li>
+                                {{-- <li>
                                     <div class="header-icons">
                                         <a class="shopping-cart" href="{{ asset('cart.html') }}"><i class="fas fa-shopping-cart"></i></a>
                                         <a class="mobile-hide search-bar-icon"  onclick="toggleSearchForm(event);">
@@ -221,7 +221,7 @@
                                             <button type="submit"><i class="fas fa-search"></i> Search</button>
                                         </form>
                                     </div>
-                                </li>
+                                </li> --}}
                  
                         </nav>
                         <a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
