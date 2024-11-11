@@ -202,7 +202,7 @@
                                 <li>
                                     <div class="header-icons">
                                         <form action="{{ route('search') }}" method="GET" class="search-form">
-                                            <input type="text" name="search" placeholder="ابحث عن المنتج أو التاغ" value="{{ request('search') }}">
+                                            <input type="text" name="search" placeholder="ابحث عن المنتج " value="{{ request('search') }}">
                                             <button type="submit"><i class="fas fa-search"></i></button>
                                         </form>
                                         <a class="shopping-cart" href="{{ asset('cart.html') }}"><i class="fas fa-shopping-cart"></i></a>
