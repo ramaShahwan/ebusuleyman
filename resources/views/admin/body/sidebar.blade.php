@@ -56,6 +56,24 @@
                                 <p>Deal Of Section</p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin_we_are_edit') }}" class="nav-link">
+                                <i class="fas fa-boxes"></i>
+                                <p>Who We Are </p>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin_banner_shop_edit') }}" class="nav-link">
+                                <i class="fas fa-boxes"></i>
+                                <p>Banenr Shop </p>
+                            </a>
+                        </li>
+
+
+
                     </ul>
                 </li>
 
@@ -122,12 +140,81 @@
                     </ul>
                 </li>
 
+
+
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>
+                            About Page
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin_why_ebu_view') }}" class="nav-link">
+                                <i class="fas fa-boxes"></i>
+                                <p>About Page</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>
+                            See Shipping Page
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin_see_shipping_edit') }}" class="nav-link">
+                                <i class="fas fa-boxes"></i>
+                                <p>See Shipping Page</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-boxes"></i>
+                        <p>
+                            Contact Form
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin_contact_form_view') }}" class="nav-link">
+                                <i class="fas fa-boxes"></i>
+                                <p>Contact Form</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+
+
+
+
+
                 <!-- Setting Section -->
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-boxes"></i>
                         <p>
-                            Setting
+                            Website Setting
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -138,8 +225,16 @@
                                 <p>Setting</p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin_page_seo_view') }}" class="nav-link">
+                                <i class="fas fa-boxes"></i>
+                                <p>Page Seo</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

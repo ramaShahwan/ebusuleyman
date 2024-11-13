@@ -78,28 +78,11 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 mt-3">
-                                    {{-- <div class="form-group">
-                                        <label>Tag</label>
-                                        <select name="tag_id" class="form-control select2">
-                                            @foreach ($tag as $item)
-                                                <option value="{{ $item->id }}"
-                                                    {{ $data->tag_id == $item->id ? 'selected' : '' }}>
-                                                    {{ $item->tag_title }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @error('tag_id')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div> --}}
-
-                                <div class="col-md-6 mt-3">
+                                {{-- <div class="col-md-6 mt-3">
                                     <div class="form-group">
                                         <label>Tag</label>
                                         <select name="tag_id[]" class="form-control select2" multiple>
-                                            @foreach ($tags as $tag)
+                                            @foreach ($tag as $tag)
                                                 <option value="{{ $tag->id }}"
                                                     {{ in_array($tag->id, $data->tags->pluck('id')->toArray()) ? 'selected' : '' }}>
                                                     {{ $tag->tag_title }}
@@ -110,7 +93,7 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group mt-3 col-md-6">
                                     <label>Product Title</label>
@@ -131,6 +114,37 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+
+
+
+
+                                <div class="form-group mt-3 col-md-6">
+                                    <label>Button Title </label>
+                                    <input type="text" value="{{ old('product_desc', $data->product_button_title) }}"
+                                        name="product_button_title" class="form-control"
+                                        placeholder="product button title">
+                                    @error('product_button_title')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group mt-3 col-md-6">
+                                    <label>Button Link</label>
+                                    <input type="text" value="{{ old('product_desc', $data->product_button_link) }}"
+                                        name="product_button_link" class="form-control"
+                                        placeholder="product button link">
+                                    @error('product_button_link')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+
+
+
+
+
+
+
 
                                 <div class="form-group mt-3 col-md-6">
                                     <label>Product Price</label>

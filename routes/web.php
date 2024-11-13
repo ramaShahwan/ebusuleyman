@@ -1,15 +1,25 @@
 <?php
 
 use App\Http\Controllers\Admin\BannerHomeController;
+use App\Http\Controllers\Admin\BannerShopController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\FeatureHomePageController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SeeShippingController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderHomeProductController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\Admin\WeAreSectionController;
+use App\Http\Controllers\Admin\WhyEbuAboutController;
+use App\Http\Controllers\Frontend\AboutController;
+use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\ContactFormController;
 use App\Http\Controllers\Frontend\HomePageController;
+use App\Http\Controllers\Frontend\SeaShippingController;
 use App\Http\Controllers\ProfileController;
+use App\Models\ContactForm;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 
@@ -18,7 +28,7 @@ Route::get('/', [HomePageController::class, 'index'])->name('home_page');
 Route::controller(HomePageController::class)->group(function () {
     Route::get('/category/all', 'index')->name('get_category');
     Route::get('/search', 'search')->name('search');
-    Route::get('/product/{id}', 'get_product_for_category')->name('get_product_for_category');
+    // Route::get('/product/{id}', 'get_product_for_category')->name('get_product_for_category');
 });
 
 
@@ -126,12 +136,72 @@ Route::middleware('auth')->group(function () {
     });
 
 
+    Route::controller(WeAreSectionController::class)->group(function () {
+        Route::get('/admin/we_are/edit', 'index')->name('admin_we_are_edit');
+        Route::post('/admin/we_are/update', 'update')->name('admin_we_are_update');
+    });
 
 
-    //// HomePageController Route List
+    Route::controller(BannerShopController::class)->group(function () {
+        Route::get('/admin/banner_shop/edit', 'index')->name('admin_banner_shop_edit');
+        Route::post('/admin/banner_shop/update', 'update')->name('admin_banner_shop_update');
+    });
+ 
 
+       //// Feature About Route List
+       Route::controller(WhyEbuAboutController::class)->group(function () {
+        Route::get('/admin/why_ebu/view', 'index')->name('admin_why_ebu_view');
+        Route::get('/admin/why_ebu/edit/{id}', 'edit')->name('admin_why_ebu_edit');
+        Route::post('/admin/why_ebu/update', 'update')->name('admin_why_ebu_update');
+    });
+
+
+    Route::controller(SeeShippingController::class)->group(function () {
+        Route::get('/admin/see_shipping/edit', 'index')->name('admin_see_shipping_edit');
+        Route::post('/admin/see_shipping/update', 'update')->name('admin_see_shipping_update');
+    });
+
+
+    
+    // contact form admin
+
+
+    Route::get(uri: '/admin/subscribe/view', action: [ContactController::class, 'SubscribeView'])->name('admin_contact_form_view');
+
+    Route::get(uri: '/admin/subscribe/delete/{id}', action: [ContactController::class, 'SubscribeDelete'])->name('admin_contact_form_delete');
+
+      //// Feature About Route List
+      Route::controller(SettingController::class)->group(function () {
+        Route::get('/admin/page/seo/view', 'PageSeoView')->name('admin_page_seo_view');
+        Route::get('/admin/page/seo/edit/{id}', 'PageSeoEdit')->name('admin_page_seo_edit');
+        Route::post('/admin/page/seo/update', 'PageSeoUpdate')->name('admin_page_seo_update');
+    });
 });
 
 require __DIR__ . '/auth.php';
 
 
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/sea_shipping', [SeaShippingController::class, 'index'])->name('sea_shipping');
+
+
+Route::post('/contact/form', action: [ContactController::class, 'storeform'])->name('contact.store');
+
+Route::controller(HomePageController::class)->group(function () {
+    Route::get('/category/all', 'index')->name('get_category');
+    Route::get('/search', 'search')->name('search');
+    Route::get('/product/{id}', 'get_product_for_category')->name('get_product_for_category');
+
+    Route::get('/product/info/{slug}', 'FronProductInfo')->name('front_product_info');
+});
+
+
+
+Route::get('/clear', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+
+    return redirect(url('/'));
+});

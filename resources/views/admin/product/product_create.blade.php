@@ -100,44 +100,22 @@
                                 </div>
 
 
-                                {{-- <div class="col-md-6 mt-3">
-                                    <div class="form-group">
-                                        <label>Tag</label>
-                                        <select name="tag_id" class="form-control select2">
-
-                                            @foreach ($tag as $item)
-                                                <option value="{{ $item->id }}">{{ $item->tag_title }}
-                                                </option>
-                                            @endforeach
-
-
-                                        </select>
-
-                                        @error('tag_id')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-
-                                    </div>
-                                    <!-- /.form-group -->
-
-                                    <!-- /.form-group -->
-                                </div> --}}
-
                                 <div class="col-md-6 mt-3">
                                     <div class="form-group">
-                                      <label>Tag</label>
-                                      <div class="select2-purple">
-                                        <select class="select2" multiple="multiple" data-placeholder="Select a State" 
-                                         name="tag_id[]" data-dropdown-css-class="select2-purple" style="width: 100%;">
-                                         @foreach ($category as $item)
-                                         <option value="{{ $item->id }}">{{ $item->category_title }}
-                                         </option>
-                                     @endforeach
-                                        </select>
-                                        @error('tag_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                      </div>
+                                        <label>Tag</label>
+                                        <div class="select2-purple">
+                                            <select class="select2" multiple="multiple"
+                                                data-placeholder="Select a State" name="tag_id[]"
+                                                data-dropdown-css-class="select2-purple" style="width: 100%;">
+                                                @foreach ($tag as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->tag_title }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('tag_id')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
                                     </div>
                                     <!-- /.form-group -->
                                 </div>
@@ -170,6 +148,39 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+
+
+
+                                <div class="form-group mt-3 col-md-6">
+                                    <label>Button Title </label>
+                                    <input type="text" value="{{ old('product_button_title') }}"
+                                        name="product_button_title" class="form-control"
+                                        placeholder="product button title">
+                                    @error('product_button_title')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group mt-3 col-md-6">
+                                    <label>Button Link</label>
+                                    <input type="text" value="{{ old('product_button_link') }}"
+                                        name="product_button_link" class="form-control"
+                                        placeholder="product button link">
+                                    @error('product_button_link')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -43,7 +43,7 @@
                                         <div class="form-group mt-3 col-md-6">
                                             <label>Icon Feature Home <span class="text-danger">( <a target="_blank"
                                                         class="text-danger"
-                                                        href="https://fontawesome.com/v5/icons/yin-yang?f=classic&s=solid">click
+                                                        href="https://fontawesome.com/v5/search">click
                                                         here to get an icon</a> )</span></label>
 
                                             <small class="form-text text-muted">Please put class icon like <span

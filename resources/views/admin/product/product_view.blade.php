@@ -10,6 +10,11 @@
     product List
 @endsection
 
+
+
+
+
+
 @section('custom_css')
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('backend/lte/plugins/fontawesome-free/css/all.min.css') }}">
@@ -40,9 +45,11 @@
             <thead>
                 <tr>
                     <th>Image</th>
-                    <th>Product Title</th>
-                    <th>Category ID</th>
-                    <th>Tag ID</th>
+                    <th>Title</th>
+                    <th>Button Title</th>
+                    {{-- <th>Button link </th> --}}
+                    <th>Category</th>
+                    <th>Tag</th>
                     <th>Description</th>
                     <th>Price</th>
                     <th>Image SEO</th>
@@ -65,15 +72,19 @@
 
 
                         <td>{{ $item->product_title }}</td>
-                        <td>{{ $item->category_id }}</td>
-                        {{-- <td>{{ $item->tag->tag_title ?? 'No Tag' }}</td> --}}
+                        <td>{{ $item->product_button_title }}</td>
+                        {{-- <td>{{ $item->product_button_link }}</td> --}}
+
+                        <td>{{ $item->category->category_title ?? 'No Category' }}</td>
+
                         <td>
-                            @if($item->tags && $item->tags->isNotEmpty())
+                            @if ($item->tags && $item->tags->isNotEmpty())
                                 {{ implode(', ', $item->tags->pluck('tag_title')->toArray()) }}
                             @else
                                 No Tag
                             @endif
                         </td>
+
                         <td>{{ $item->product_desc }}</td>
                         <td>{{ $item->product_price }}</td>
 
@@ -103,9 +114,11 @@
             <tfoot>
                 <tr>
                     <th>Image</th>
-                    <th>Product Title</th>
-                    <th>Category ID</th>
-                    <th>Tag ID</th>
+                    <th>Title</th>
+                    <th>Button Title</th>
+                    {{-- <th>Button link </th> --}}
+                    <th>Category</th>
+                    <th>Tag</th>
                     <th>Description</th>
                     <th>Price</th>
                     <th>Image SEO</th>

@@ -3,11 +3,11 @@
 
 
 @section('title_page')
-    Banner Home Edit
+    Website Setting Edit
 @endsection
 
 @section('tab_title')
-    Banner Home Edit
+    Website Setting Edit
 @endsection
 
 
@@ -17,7 +17,7 @@
         <!-- general form elements -->
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Banner Edit</h3>
+                <h3 class="card-title">Website Setting Edit</h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
@@ -111,10 +111,10 @@
                                 </div>
 
                                 <div class="form-group mt-3 col-md-6">
-                                    <label>Footer Subscribe Description</label>
+                                    <label>footer subscribe desc</label>
                                     <input type="text" name="footer_subscribe_desc" class="form-control"
                                         value="{{ $data->footer_subscribe_desc }}"
-                                        placeholder="Footer Subscribe Description">
+                                        placeholder="تابع كل جديد عبر بريدك">
                                     @error('footer_subscribe_desc')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -138,6 +138,24 @@
                                     @enderror
                                 </div>
 
+
+
+
+                                <div class="form-group mt-3 col-md-6">
+                                    <label>Form Desc Contact</label>
+                                    <input type="text" name="form_desc_contact" class="form-control"
+                                        value="{{ $data->form_desc_contact }}" placeholder="Form Desc Contact">
+                                    @error('form_desc_contact')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+
+
+
+
+
+
                                 <div class="form-group mt-3 col-md-6">
                                     <label>Facebook Link</label>
                                     <input type="text" name="facebook" class="form-control"
@@ -154,6 +172,23 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+
+
+                                <div class="form-group mt-3 col-md-6">
+                                    <label>About Image SEO</label>
+                                    <input type="text" name="about_page_image_seo" class="form-control"
+                                        value="{{ $data->about_page_image_seo }}" placeholder="Logo SEO">
+                                    @error('about_page_image_seo')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+
+
+
+
+
+
                                 <div class="form-group mt-3 col-md-6">
                                     <label>img icon browser</label>
                                     <input type="file" name="img_icon_browser" class="form-control"
@@ -170,6 +205,15 @@
                                     @enderror
                                 </div>
 
+
+
+
+
+
+
+
+
+
                                 <div class="form-group mt-3 col-md-6">
                                     <label>Logo</label>
                                     <input type="file" name="logo" class="form-control" accept="image/*"
@@ -178,6 +222,19 @@
                                     <img src="{{ asset($data->logo ?? '') }}" id="mainThmb1"
                                         style="height: 150px; width:200px;">
                                     @error('logo')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+
+                                <div class="form-group mt-3 col-md-6">
+                                    <label>about page image</label>
+                                    <input type="file" name="about_page_image" class="form-control"
+                                        accept="image/*" onChange="mainThamUrl(this, 'mainThmb2')">
+                                    <br>
+                                    <img src="{{ asset($data->about_page_image ?? '') }}" id="mainThmb2"
+                                        style="height: 150px; width:200px;">
+                                    @error('about_page_image')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

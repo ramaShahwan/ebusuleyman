@@ -7,6 +7,7 @@
 @section('tab_title')
     Dashboard
 @endsection
+
 @section('custom_css')
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('backend/lte/plugins/fontawesome-free/css/all.min.css') }}">
@@ -156,7 +157,7 @@
     <script src="{{ asset('backend/lte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('backend/lte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
-
+{{--
     <script>
         $(function() {
             $("#example1").DataTable({
@@ -167,6 +168,6 @@
             }).buttons().container().appendTo('#example1_wrapper .col-md-12:eq(0)');
 
         });
-    </script>
+    </script> --}}
 @endsection
 @endsection
